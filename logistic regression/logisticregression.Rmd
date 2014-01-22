@@ -12,8 +12,8 @@ Let's load in the data:
 ```{r}
 library(aod)
 library(ggplot2)
-train <- read.csv("~/Code/kaggle_class_code/train.csv")
-test <- read.csv("~/Code/kaggle_class_code/test.csv")
+train <- read.csv("~/Code/kaggle_class_code/data/train.csv")
+test <- read.csv("~/Code/kaggle_class_code/data/test.csv")
 ```
 
 Let's get a summary of our training set data:
