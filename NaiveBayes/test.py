@@ -8,16 +8,16 @@ import sys
 import numpy as np
 
 data = open(sys.argv[1], "r") #open data file for reading
-inputs_zero = []
-inputs_one = []
+targets = []
+inputs = []
 for line in data.readlines():
 	what_we_see = line.strip('\r\n').split(',')
-	if '0' in what_we_see[0]:
-		inputs_zero.append([float(i) for i in what_we_see[1:]])
-	elif '1' in what_we_see[0]:
-		inputs_one.append([float(i) for i in what_we_see[1:]])
+	print what_we_see
+	if 'Choice' not in what_we_see[0]:
+		targets.append([float(what_we_see[0])])
+		inputs.append([float(i) for i in what_we_see[1:]])
 	else:
-		pass
+		continue
 
 print "finished sucking in data"
 
@@ -26,11 +26,11 @@ print "finished sucking in data"
 # Train Data
 from sklearn.naive_bayes import GaussianNB
 gnb = GaussianNB()
-y_pred = gnb.fit(np.array(inputs_zero), np.array([float(0) for i in range(len(inputs_zero))])).predict(np.array(inputs_one))
+y_pred = gnb.fit(np.array(inputs), np.array(targets)).predict(np.array(inputs))
 
 print y_pred
 
-print("Number of mislabeled points : %d" % sum([float(0) for i in range(len(y_pred))] != y_pred))
+print("Number of mislabeled points : %d" % (targets != y_pred).sum())
 
 # Make Prediction
 
